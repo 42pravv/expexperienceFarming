@@ -1,6 +1,17 @@
-.vs*
+# Visual Studio
+.vs/
+.vscode/
+
+# Build output
 bin/
 obj/
+Debug/
+Release/
+
+# User settings
 *.user
 *.suo
-.sln
+*.csproj.user
+
+*.sln.docstates
+*.sln.ide
