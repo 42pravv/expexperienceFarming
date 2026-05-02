@@ -1,0 +1,15 @@
+C:\csProjects\expexperienceFarming\Task_1\bin\Debug\net9.0\Task_1.exe
+C:\csProjects\expexperienceFarming\Task_1\bin\Debug\net9.0\Task_1.deps.json
+C:\csProjects\expexperienceFarming\Task_1\bin\Debug\net9.0\Task_1.runtimeconfig.json
+C:\csProjects\expexperienceFarming\Task_1\bin\Debug\net9.0\Task_1.dll
+C:\csProjects\expexperienceFarming\Task_1\bin\Debug\net9.0\Task_1.pdb
+C:\csProjects\expexperienceFarming\Task_1\obj\Debug\net9.0\Task_1.GeneratedMSBuildEditorConfig.editorconfig
+C:\csProjects\expexperienceFarming\Task_1\obj\Debug\net9.0\Task_1.AssemblyInfoInputs.cache
+C:\csProjects\expexperienceFarming\Task_1\obj\Debug\net9.0\Task_1.AssemblyInfo.cs
+C:\csProjects\expexperienceFarming\Task_1\obj\Debug\net9.0\Task_1.csproj.CoreCompileInputs.cache
+C:\csProjects\expexperienceFarming\Task_1\obj\Debug\net9.0\Task_1.sourcelink.json
+C:\csProjects\expexperienceFarming\Task_1\obj\Debug\net9.0\Task_1.dll
+C:\csProjects\expexperienceFarming\Task_1\obj\Debug\net9.0\refint\Task_1.dll
+C:\csProjects\expexperienceFarming\Task_1\obj\Debug\net9.0\Task_1.pdb
+C:\csProjects\expexperienceFarming\Task_1\obj\Debug\net9.0\Task_1.genruntimeconfig.cache
+C:\csProjects\expexperienceFarming\Task_1\obj\Debug\net9.0\ref\Task_1.dll

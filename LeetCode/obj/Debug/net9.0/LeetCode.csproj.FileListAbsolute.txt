@@ -1,0 +1,15 @@
+C:\csProjects\expexperienceFarming\LeetCode\obj\Debug\net9.0\LeetCode.GeneratedMSBuildEditorConfig.editorconfig
+C:\csProjects\expexperienceFarming\LeetCode\obj\Debug\net9.0\LeetCode.AssemblyInfoInputs.cache
+C:\csProjects\expexperienceFarming\LeetCode\obj\Debug\net9.0\LeetCode.AssemblyInfo.cs
+C:\csProjects\expexperienceFarming\LeetCode\obj\Debug\net9.0\LeetCode.csproj.CoreCompileInputs.cache
+C:\csProjects\expexperienceFarming\LeetCode\obj\Debug\net9.0\LeetCode.sourcelink.json
+C:\csProjects\expexperienceFarming\LeetCode\bin\Debug\net9.0\LeetCode.exe
+C:\csProjects\expexperienceFarming\LeetCode\bin\Debug\net9.0\LeetCode.deps.json
+C:\csProjects\expexperienceFarming\LeetCode\bin\Debug\net9.0\LeetCode.runtimeconfig.json
+C:\csProjects\expexperienceFarming\LeetCode\bin\Debug\net9.0\LeetCode.dll
+C:\csProjects\expexperienceFarming\LeetCode\bin\Debug\net9.0\LeetCode.pdb
+C:\csProjects\expexperienceFarming\LeetCode\obj\Debug\net9.0\LeetCode.dll
+C:\csProjects\expexperienceFarming\LeetCode\obj\Debug\net9.0\refint\LeetCode.dll
+C:\csProjects\expexperienceFarming\LeetCode\obj\Debug\net9.0\LeetCode.pdb
+C:\csProjects\expexperienceFarming\LeetCode\obj\Debug\net9.0\LeetCode.genruntimeconfig.cache
+C:\csProjects\expexperienceFarming\LeetCode\obj\Debug\net9.0\ref\LeetCode.dll
