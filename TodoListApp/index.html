@@ -1,0 +1,255 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            transition: border-color 0.3s;
+        }
+
+            input[type="text"]:focus {
+                outline: none;
+                border-color: #667eea;
+            }
+
+        button {
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+            button:hover {
+                background: #5a67d8;
+                transform: translateY(-2px);
+            }
+
+        .todo-list {
+            list-style: none;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            transition: transform 0.2s;
+        }
+
+            .todo-item:hover {
+                transform: translateX(5px);
+            }
+
+        .todo-checkbox {
+            width: 24px;
+            height: 24px;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .todo-title {
+            flex: 1;
+            font-size: 16px;
+            color: #333;
+        }
+
+            .todo-title.completed {
+                text-decoration: line-through;
+                color: #999;
+            }
+
+        .delete-btn {
+            background: #ef4444;
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+
+            .delete-btn:hover {
+                background: #dc2626;
+            }
+
+        .loading {
+            text-align: center;
+            color: #999;
+            padding: 20px;
+        }
+
+        .empty {
+            text-align: center;
+            color: #999;
+            padding: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✅ Todo List</h1>
+
+        <div class="input-group">
+            <input type="text" id="todoInput" placeholder="Что нужно сделать?" onkeypress="if(event.key==='Enter') addTodo()">
+            <button onclick="addTodo()">Добавить</button>
+        </div>
+
+        <div id="loading" class="loading">Загрузка...</div>
+        <ul id="todoList" class="todo-list"></ul>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:5000/api/Todo';
+
+        // Получить все задачи
+        async function fetchTodos() {
+            try {
+                const response = await fetch(API_URL);
+                const todos = await response.json();
+                displayTodos(todos);
+            } catch (error) {
+                console.error('Ошибка:', error);
+                document.getElementById('loading').innerHTML = '❌ Ошибка загрузки. Убедитесь, что API запущен на порту 5213';
+            }
+        }
+
+        // Отобразить задачи
+        function displayTodos(todos) {
+            const list = document.getElementById('todoList');
+            const loading = document.getElementById('loading');
+
+            if (!todos || todos.length === 0) {
+                loading.innerHTML = '<div class="empty">📭 Нет задач. Добавьте первую!</div>';
+                list.innerHTML = '';
+                return;
+            }
+
+            loading.style.display = 'none';
+            list.innerHTML = todos.map(todo => `
+                <li class="todo-item">
+                    <input type="checkbox"
+                           class="todo-checkbox"
+                           ${todo.isCompleted ? 'checked' : ''}
+                           onchange="toggleTodo(${todo.id}, this.checked)">
+                    <span class="todo-title ${todo.isCompleted ? 'completed' : ''}">${escapeHtml(todo.title)}</span>
+                    <button class="delete-btn" onclick="deleteTodo(${todo.id})">Удалить</button>
+                </li>
+            `).join('');
+        }
+
+        // Добавить задачу
+        async function addTodo() {
+            const input = document.getElementById('todoInput');
+            const title = input.value.trim();
+
+            if (!title) {
+                alert('Введите название задачи');
+                return;
+            }
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title: title })
+                });
+
+                if (response.ok) {
+                    input.value = '';
+                    fetchTodos();
+                }
+            } catch (error) {
+                console.error('Ошибка:', error);
+            }
+        }
+
+        // Переключить статус
+        async function toggleTodo(id, isCompleted) {
+            const todo = await fetch(`${API_URL}/${id}`).then(r => r.json());
+
+            try {
+                await fetch(`${API_URL}/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        title: todo.title,
+                        isCompleted: isCompleted
+                    })
+                });
+                fetchTodos();
+            } catch (error) {
+                console.error('Ошибка:', error);
+            }
+        }
+
+        // Удалить задачу
+        async function deleteTodo(id) {
+            if (!confirm('Удалить задачу?')) return;
+
+            try {
+                await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+                fetchTodos();
+            } catch (error) {
+                console.error('Ошибка:', error);
+            }
+        }
+
+        // Защита от XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Загрузить задачи при старте
+        fetchTodos();
+
+        // Обновлять каждые 5 секунд
+        setInterval(fetchTodos, 5000);
+    </script>
+</body>
+</html>
